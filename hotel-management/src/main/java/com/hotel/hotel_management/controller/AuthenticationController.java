@@ -1,8 +1,6 @@
 package com.hotel.hotel_management.controller;
 
-import com.hotel.hotel_management.dto.request.ApiResponse;
-import com.hotel.hotel_management.dto.request.AuthenticationRequest;
-import com.hotel.hotel_management.dto.request.InstrospectRequest;
+import com.hotel.hotel_management.dto.request.*;
 import com.hotel.hotel_management.dto.response.AuthenticationResponse;
 import com.hotel.hotel_management.dto.response.InstrospectResponse;
 import com.hotel.hotel_management.service.AuthenticationService;
@@ -36,6 +34,21 @@ public class AuthenticationController {
     ApiResponse<InstrospectResponse> authenticate(@RequestBody InstrospectRequest request) throws ParseException, JOSEException {
         var res = authenticationService.instrospect(request);
         return ApiResponse.<InstrospectResponse> builder()
+                .result(res)
+                .build();
+    }
+
+    @PostMapping("/logout")
+    ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+        authenticationService.logOut(request);
+        return ApiResponse.<Void> builder()
+                .build();
+    }
+
+    @PostMapping("/refresh")
+    ApiResponse<AuthenticationResponse> refresh(@RequestBody RefreshRequest request) throws ParseException, JOSEException {
+        var res = authenticationService.refreshToken(request);
+        return ApiResponse.<AuthenticationResponse> builder()
                 .result(res)
                 .build();
     }

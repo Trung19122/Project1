@@ -14,7 +14,7 @@ public class RoomResponse {
     Long id;
     String roomNumber;
     Room.RoomType type;
-    Double pricePerNight;
+    Double pricePerHour;
     Room.RoomStatus status;
     String description;
 }

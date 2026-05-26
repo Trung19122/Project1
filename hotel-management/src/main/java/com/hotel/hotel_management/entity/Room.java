@@ -25,8 +25,8 @@ public class Room {
     @Column(nullable = false)
     private RoomType type;
 
-    @Column(name = "price_per_night", nullable = false)
-    private Double pricePerNight;
+    @Column(name = "price_per_hour", nullable = false)
+    private Double pricePerHour;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -36,10 +36,10 @@ public class Room {
     private String description;
 
     public enum RoomType {
-        SINGLE, DOUBLE, TWIN, SUITE, DELUXE
+        SINGLE, COUPLE, STANDARD, MEDIUM, LARGE
     }
 
     public enum RoomStatus {
-        AVAILABLE, OCCUPIED, MAINTENANCE
+        AVAILABLE, OCCUPIED, RESERVED,CLEANING
     }
 }

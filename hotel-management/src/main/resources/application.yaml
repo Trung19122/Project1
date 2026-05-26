@@ -29,3 +29,5 @@ server:
 
 jwt:
   secret: "1a4261d83960f5fa9f7b614936869e6f4e58b801cc97f5c78196398504139c5d"
+  valid-duration: 3600 #in seconds
+  refresh-duration: 140000 #in seconds

@@ -1,13 +1,16 @@
 package com.hotel.hotel_management.service;
 
-import com.hotel.hotel_management.Enum.Roles;
+
+import com.hotel.hotel_management.Enum.UserStatus;
 import com.hotel.hotel_management.Mapper.UserMapper;
 import com.hotel.hotel_management.dto.request.UserCreationRequest;
 import com.hotel.hotel_management.dto.request.UserUpdateRequest;
 import com.hotel.hotel_management.dto.response.UserResponse;
+import com.hotel.hotel_management.entity.Roles;
 import com.hotel.hotel_management.entity.User;
 import com.hotel.hotel_management.exception.AppException;
 import com.hotel.hotel_management.exception.ErrorCode;
+import com.hotel.hotel_management.repository.RoleRepository;
 import com.hotel.hotel_management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -26,16 +29,30 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new AppException(ErrorCode.EMAIL_EXISTED); // Bạn cần thêm mã này vào ErrorCode.java
+        }
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Roles.USER.name());
+        user.setStatus(UserStatus.ACTIVE);
+        HashSet<Roles> roles = new HashSet<>();
+        Roles userRole = roleRepository.findById("CUSTOMER")
+                .orElseGet(() -> {
+                    Roles newRole = Roles.builder()
+                            .name("CUSTOMER")
+                            .description("Default CUSTOMER role")
+                            .build();
+                    return roleRepository.save(newRole);
+                });
+
+        roles.add(userRole);
 
         user.setRoles(roles);
         return userMapper.toUserResponse(userRepository.save(user));
@@ -68,6 +85,8 @@ public class UserService {
         if (request.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }

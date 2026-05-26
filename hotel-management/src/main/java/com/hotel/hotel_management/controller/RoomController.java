@@ -21,12 +21,11 @@ public class RoomController {
     @PostMapping("/room")
     ApiResponse<Room> createRoom(@RequestBody @Valid RoomCreationRequest request){
         ApiResponse<Room> apiResponse = new ApiResponse<>();
-
         apiResponse.setResult(roomService.createRoom(request));
         return apiResponse;
     }
 
-    @GetMapping("/room/all")
+    @GetMapping("/room")
     ApiResponse<List<Room>> getRoom(){
         ApiResponse<List<Room>> apiResponse = new ApiResponse<>();
         apiResponse.setResult(roomService.getRoom());

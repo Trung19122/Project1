@@ -14,7 +14,7 @@ public class RoomUpdateRequest {
     @Size(min = 3 , message = "ROOM_NUMBER")
     String roomNumber;
     Room.RoomType type;
-    Double pricePerNight;
+    Double pricePerHour;
     Room.RoomStatus status;
     @Size(min = 5 , message = "DESCRIPTION")
     String description;
