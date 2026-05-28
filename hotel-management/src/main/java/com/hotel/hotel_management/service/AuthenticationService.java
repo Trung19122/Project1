@@ -88,7 +88,7 @@ public class AuthenticationService {
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS256);
         JWTClaimsSet jwtClaimset = new JWTClaimsSet.Builder()
                 .subject(user.getUsername())
-                .issuer("hotel-management.com")
+                .issuer("SportHub.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plus(VALID_DURATION,ChronoUnit.SECONDS).toEpochMilli()))
                 .jwtID(UUID.randomUUID().toString())

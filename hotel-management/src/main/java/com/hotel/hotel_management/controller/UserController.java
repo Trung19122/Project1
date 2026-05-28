@@ -1,8 +1,8 @@
 package com.hotel.hotel_management.controller;
 
 import com.hotel.hotel_management.dto.request.ApiResponse;
-import com.hotel.hotel_management.dto.request.UserCreationRequest;
-import com.hotel.hotel_management.dto.request.UserUpdateRequest;
+import com.hotel.hotel_management.dto.request.UserRequest.UserCreationRequest;
+import com.hotel.hotel_management.dto.request.UserRequest.UserUpdateRequest;
 import com.hotel.hotel_management.dto.response.UserResponse;
 import com.hotel.hotel_management.service.UserService;
 import jakarta.validation.Valid;

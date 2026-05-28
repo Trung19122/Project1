@@ -3,8 +3,8 @@ package com.hotel.hotel_management.service;
 
 import com.hotel.hotel_management.Enum.UserStatus;
 import com.hotel.hotel_management.Mapper.UserMapper;
-import com.hotel.hotel_management.dto.request.UserCreationRequest;
-import com.hotel.hotel_management.dto.request.UserUpdateRequest;
+import com.hotel.hotel_management.dto.request.UserRequest.UserCreationRequest;
+import com.hotel.hotel_management.dto.request.UserRequest.UserUpdateRequest;
 import com.hotel.hotel_management.dto.response.UserResponse;
 import com.hotel.hotel_management.entity.Roles;
 import com.hotel.hotel_management.entity.User;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
